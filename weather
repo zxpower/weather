@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export CITIES='city: [Riga, Charlottenburg]'
+gomplate -d 'cities=env:///CITIES?type=application/yaml' -d 'weather=https://wttr.in/?2' -H 'weather=User-Agent: curl' -f in.tmpl
