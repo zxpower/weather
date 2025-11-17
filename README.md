@@ -6,7 +6,11 @@ Nice and small utility script to get weather in console. It uses [`gomplate`](ht
 
 1. Install `gomplate` following those [instructions](https://docs.gomplate.ca/installing/).
 2. Clone the repo and place `weather` and `in.tmpl` files in some directory that's on your `$PATH`.
-3. By default `weather` produces weather for [Riga, Latvia](https://goo.gl/maps/sJmMP2zCWJaUpWyL8) and [Charlottenburg, Berlin, Germany](https://goo.gl/maps/jf6tpmsnHK6mjuLR6) for 2 days, but you can edit `weather` script and change it to cities that you're interested in.
+3. By default `weather` produces weather for [Riga, Latvia](https://goo.gl/maps/sJmMP2zCWJaUpWyL8) and [Charlottenburg, Berlin, Germany](https://goo.gl/maps/jf6tpmsnHK6mjuLR6) using wttr.in’s standard multi-day output. Override the city list by setting the `CITIES` env var, for example:
+
+   ```sh
+   CITIES='city: [Riga, Tallinn]' ./weather
+   ```
 
 ## Running
 
@@ -82,4 +86,3 @@ Follow @igor_chubin for wttr.in updates
 [The MIT License](http://opensource.org/licenses/MIT)
 
 Copyright &copy;2019 Reinholds Zviedris
-

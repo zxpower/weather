@@ -1,4 +1,17 @@
 #!/bin/bash
 
-export CITIES='city: [Riga, Charlottenburg]'
-gomplate -d 'cities=env:///CITIES?type=application/yaml' -d 'weather=https://wttr.in/?2' -H 'weather=User-Agent: curl' -f in.tmpl
+: "${CITIES:=city: [Rīga, Salacgrīva]}"
+
+# Parse cities from YAML and fetch weather for each
+echo "$CITIES" | gomplate -i '{{ range $i, $city := (ds "cities").city }}{{ add 1 $i }}:
+{{ $city }}
+{{ end }}' -d "cities=stdin://?type=application/yaml" | \
+while IFS= read -r line; do
+  if [[ "$line" =~ ^[0-9]+: ]]; then
+    # Print the number
+    echo "$line"
+  elif [ -n "$line" ]; then
+    # Fetch and display weather for this city
+    curl -s "https://wttr.in/$line?m&2"
+  fi
+done
